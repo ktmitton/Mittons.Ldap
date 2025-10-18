@@ -1,4 +1,5 @@
 using Mittons.ActiveDirectory.Search;
+using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
 namespace Mittons.ActiveDirectory.Tests.Search;
 
@@ -7,60 +8,32 @@ public class SimpleItemTests
     [Test]
     [MatrixDataSource]
     public async Task Ctor_WhenCreated_ExpectPropertiesToBeSet(
-        [Matrix("id", "name")] string attribute,
-        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperators))] ComparisonOperator comparisonOperator,
-        [Matrix("1", "John")] string value
+        [MatrixMethod<SimpleItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ValuesDatasource))] ComponentData<Value> valueComponent
     )
     {
         // Arrange
         // Act
-        SimpleItem item = new(attribute, comparisonOperator, value);
+        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
 
         // Assert
-        await Assert.That(item.Attribute).IsEqualTo(attribute);
-        await Assert.That(item.ComparisonOperator).IsEqualTo(comparisonOperator);
-        await Assert.That(item.Value).IsEqualTo(value);
+        await Assert.That(item.Attribute).IsEqualTo(attributeComponent.Component);
+        await Assert.That(item.ComparisonOperator).IsEqualTo(comparisonOperatorComponent.Component);
+        await Assert.That(item.Value).IsEqualTo(valueComponent.Component);
     }
 
     [Test]
     [MatrixDataSource]
-    public void Ctor_WhenCreatedWithInvalidAttributes_ExpectException(
-        [Matrix(null, "", " ")] string attribute,
-        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperators))] ComparisonOperator comparisonOperator,
-        [Matrix("1", "John")] string value
+    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+        [MatrixMethod<SimpleItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ValuesDatasource))] ComponentData<Value> valueComponent
     )
     {
         // Arrange
-        // Act
-        // Assert
-        Assert.Throws<ArgumentException>(() => new SimpleItem(attribute, comparisonOperator, value));
-    }
-
-    [Test]
-    [MatrixDataSource]
-    public void Ctor_WhenCreatedWithInvalidValues_ExpectException(
-        [Matrix("id", "name")] string attribute,
-        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperators))] ComparisonOperator comparisonOperator,
-        [Matrix(null, "", " ")] string value
-    )
-    {
-        // Arrange
-        // Act
-        // Assert
-        Assert.Throws<ArgumentException>(() => new SimpleItem(attribute, comparisonOperator, value));
-    }
-
-    [Test]
-    [MethodDataSource(nameof(BasicToStringDatasource))]
-    public async Task ToString_WhenCalled_ExpectAValidLdapItemString(
-        string attribute,
-        ComparisonOperator comparisonOperator,
-        string value,
-        string expectedResult
-    )
-    {
-        // Arrange
-        SimpleItem item = new(attribute, comparisonOperator, value);
+        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        string expectedResult = $"({attributeComponent.DefaultString}{comparisonOperatorComponent.DefaultString}{valueComponent.DefaultString})";
 
         // Act
         string actualResult = item.ToString();
@@ -70,71 +43,66 @@ public class SimpleItemTests
     }
 
     [Test]
-    [MethodDataSource(nameof(EscapedStringsDatasource))]
-    public async Task ToLdapEscapedString_WhenCalledWithAttributesThatNeedEscaped_ExpectAValidLdapEscapedString(
-        string unescapedAttribute,
-        string escapedAttribute
+    [MatrixDataSource]
+    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+        [MatrixMethod<SimpleItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ValuesDatasource))] ComponentData<Value> valueComponent
     )
     {
         // Arrange
-        SimpleItem item = new(unescapedAttribute, ComparisonOperator.Equality, "John");
-        string expectedResult = $"({escapedAttribute}=John)";
+        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        string expectedResult = $"({attributeComponent.DirectoryServicesString}{comparisonOperatorComponent.DirectoryServicesString}{valueComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToLdapEscapedString();
+        string actualResult = item.ToDirectoryServicesString();
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
     }
 
     [Test]
-    [MethodDataSource(nameof(EscapedStringsDatasource))]
-    public async Task ToLdapEscapedString_WhenCalledWithValuesThatNeedEscaped_ExpectAValidLdapEscapedString(
-        string unescapedValue,
-        string escapedValue
+    [MatrixDataSource]
+    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+        [MatrixMethod<SimpleItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
+        [MatrixMethod<SimpleItemTests>(nameof(ValuesDatasource))] ComponentData<Value> valueComponent
     )
     {
         // Arrange
-        SimpleItem item = new("name", ComparisonOperator.Equality, unescapedValue);
-        string expectedResult = $"(name={escapedValue})";
+        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        string expectedResult = $"({attributeComponent.LdapString}{comparisonOperatorComponent.LdapString}{valueComponent.LdapString})";
 
         // Act
-        string actualResult = item.ToLdapEscapedString();
+        string actualResult = item.ToLdapString();
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
     }
 
-    private static IEnumerable<ComparisonOperator> ComparisonOperators()
+    public record ComponentData<T>(T Component, string DefaultString, string DirectoryServicesString, string LdapString);
+
+    private static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
     {
-        yield return ComparisonOperator.Equality;
-        yield return ComparisonOperator.ApproximateMatch;
-        yield return ComparisonOperator.GreaterThanOrEqual;
-        yield return ComparisonOperator.LessThanOrEqual;
+        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
+        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
     }
 
-    public static IEnumerable<(string attribute, ComparisonOperator comparisonOperator, string value, string expectedResult)> BasicToStringDatasource()
+    private static IEnumerable<ComponentData<ComparisonOperator>> ComparisonOperatorsDatasource()
     {
-        yield return ("name", ComparisonOperator.Equality, "John", "(name=John)");
-        yield return ("name", ComparisonOperator.ApproximateMatch, "Smith", "(name~=Smith)");
-        yield return ("id", ComparisonOperator.GreaterThanOrEqual, "1", "(id>=1)");
-        yield return ("id", ComparisonOperator.LessThanOrEqual, "2", "(id<=2)");
+        yield return new ComponentData<ComparisonOperator>(ComparisonOperator.Equality, "=", "=", "=");
+        yield return new ComponentData<ComparisonOperator>(ComparisonOperator.ApproximateMatch, "~=", "~=", "~=");
+        yield return new ComponentData<ComparisonOperator>(ComparisonOperator.GreaterThanOrEqual, ">=", ">=", ">=");
+        yield return new ComponentData<ComparisonOperator>(ComparisonOperator.LessThanOrEqual, "<=", "<=", "<=");
     }
 
-    public static IEnumerable<(string unescaped, string escaped)> EscapedStringsDatasource()
+    private static IEnumerable<ComponentData<Value>> ValuesDatasource()
     {
-        (string unescaped, string escaped)[] SpecialCharacters = [
-            (@"\*", @"\2a"),
-            (@"\(", @"\28"),
-            (@"\)", @"\29"),
-            (@"\\", @"\5c"),
-        ];
-
-        foreach (var (unescaped, escaped) in SpecialCharacters)
-        {
-            yield return ($"{unescaped}test", $"{escaped}test");
-            yield return ($"test{unescaped}", $"test{escaped}");
-            yield return ($"te{unescaped}st", $"te{escaped}st");
-        }
+        yield return new ComponentData<Value>(new Value("1"), "1", "1", "1");
+        yield return new ComponentData<Value>(new Value("John"), "John", "John", "John");
+        yield return new ComponentData<Value>(new Value(@"John\Smith"), @"John\Smith", @"John\\Smith", @"John\5cSmith");
+        yield return new ComponentData<Value>(new Value("John*Smith"), "John*Smith", @"John\*Smith", @"John\2aSmith");
+        yield return new ComponentData<Value>(new Value("(John) Smith"), "(John) Smith", @"\(John\) Smith", @"\28John\29 Smith");
+        yield return new ComponentData<Value>(new Value("John\0Smith"), "John\0Smith", "John\0Smith", @"John\00Smith");
     }
 }

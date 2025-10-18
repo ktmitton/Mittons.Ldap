@@ -1,4 +1,5 @@
 using Mittons.ActiveDirectory.Search;
+using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
 namespace Mittons.ActiveDirectory.Tests.Search;
 
@@ -7,38 +8,26 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task Ctor_WhenCreated_ExpectPropertiesToBeSet(
-        [Matrix("id", "name")] string attribute
+        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
         // Act
-        PresentItem item = new(attribute);
+        PresentItem item = new(attributeComponent.Component);
 
         // Assert
-        await Assert.That(item.Attribute).IsEqualTo(attribute);
+        await Assert.That(item.Attribute).IsEqualTo(attributeComponent.Component);
     }
 
     [Test]
     [MatrixDataSource]
-    public void Ctor_WhenCreatedWithInvalidAttributes_ExpectException(
-        [Matrix(null, "", " ")] string attribute
+    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
-        // Act
-        // Assert
-        Assert.Throws<ArgumentException>(() => new PresentItem(attribute));
-    }
-
-    [Test]
-    [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectAValidLdapItemString(
-        [Matrix("id", "name")]string attribute
-    )
-    {
-        // Arrange
-        string expectedResult = $"({attribute}=*)";
-        PresentItem item = new(attribute);
+        PresentItem item = new(attributeComponent.Component);
+        string expectedResult = $"({attributeComponent.DefaultString}=*)";
 
         // Act
         string actualResult = item.ToString();
@@ -48,37 +37,44 @@ public class PresentItemTests
     }
 
     [Test]
-    [MethodDataSource(nameof(EscapedStringsDatasource))]
-    public async Task ToLdapEscapedString_WhenCalledWithAttributesThatNeedEscaped_ExpectAValidLdapEscapedString(
-        string unescapedAttribute,
-        string escapedAttribute
+    [MatrixDataSource]
+    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
-        PresentItem item = new(unescapedAttribute);
-        string expectedResult = $"({escapedAttribute}=*)";
+        PresentItem item = new(attributeComponent.Component);
+        string expectedResult = $"({attributeComponent.DirectoryServicesString}=*)";
 
         // Act
-        string actualResult = item.ToLdapEscapedString();
+        string actualResult = item.ToDirectoryServicesString();
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
     }
 
-    public static IEnumerable<(string unescaped, string escaped)> EscapedStringsDatasource()
+    [Test]
+    [MatrixDataSource]
+    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
+    )
     {
-        (string unescaped, string escaped)[] SpecialCharacters = [
-            (@"\*", @"\2a"),
-            (@"\(", @"\28"),
-            (@"\)", @"\29"),
-            (@"\\", @"\5c"),
-        ];
+        // Arrange
+        PresentItem item = new(attributeComponent.Component);
+        string expectedResult = $"({attributeComponent.LdapString}=*)";
 
-        foreach (var (unescaped, escaped) in SpecialCharacters)
-        {
-            yield return ($"{unescaped}test", $"{escaped}test");
-            yield return ($"test{unescaped}", $"test{escaped}");
-            yield return ($"te{unescaped}st", $"te{escaped}st");
-        }
+        // Act
+        string actualResult = item.ToLdapString();
+
+        // Assert
+        await Assert.That(actualResult).IsEqualTo(expectedResult);
+    }
+
+    public record ComponentData<T>(T Component, string DefaultString, string DirectoryServicesString, string LdapString);
+
+    private static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
+    {
+        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
+        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
     }
 }

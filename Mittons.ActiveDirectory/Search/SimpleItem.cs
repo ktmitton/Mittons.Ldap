@@ -1,25 +1,18 @@
-using System;
-using Mittons.ActiveDirectory.Extensions;
-
 namespace Mittons.ActiveDirectory.Search
 {
     public class SimpleItem
     {
-        public string Attribute { get; }
+        public Attribute Attribute { get; }
         public ComparisonOperator ComparisonOperator { get; }
-        public string Value { get; }
+        public Value Value { get; }
 
-        public SimpleItem(string attribute, ComparisonOperator comparisonOperator, string value)
+        public SimpleItem(string attribute, ComparisonOperator comparisonOperator, string contents)
+            : this(new Attribute(attribute), comparisonOperator, new Value(contents))
         {
-            if (string.IsNullOrWhiteSpace(attribute))
-            {
-                throw new ArgumentException("Attribute cannot be null, empty, or whitespace", nameof(attribute));
-            }
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("Value cannot be null, empty, or whitespace", nameof(value));
-            }
+        }
 
+        public SimpleItem(Attribute attribute, ComparisonOperator comparisonOperator, Value value)
+        {
             Attribute = attribute;
             ComparisonOperator = comparisonOperator;
             Value = value;
@@ -28,7 +21,10 @@ namespace Mittons.ActiveDirectory.Search
         public override string ToString()
             => $"({Attribute}{ComparisonOperator}{Value})";
 
-        public string ToLdapEscapedString()
-            => $"({Attribute.ToLdapEscapedString()}{ComparisonOperator}{Value.ToLdapEscapedString()})";
+        public string ToDirectoryServicesString()
+            => $"({Attribute}{ComparisonOperator}{Value.ToDirectoryServicesString()})";
+
+        public string ToLdapString()
+            => $"({Attribute}{ComparisonOperator}{Value.ToLdapString()})";
     }
 }
