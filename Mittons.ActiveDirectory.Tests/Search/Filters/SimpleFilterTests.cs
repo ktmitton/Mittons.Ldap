@@ -28,7 +28,7 @@ public class SimpleFilterTests
     {
         // Arrange
         // Act
-        SimpleFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
+        SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
 
         // Assert
         await Assert.That(simpleFilter.LogicalOperator).IsEqualTo(logicalOperatorComponent.Component);
@@ -44,7 +44,7 @@ public class SimpleFilterTests
         // Arrange
         // Act
         // Assert
-        Assert.Throws<ArgumentException>(() => new SimpleFilter(logicalOperatorComponent.Component, _filterMock.Object));
+        Assert.Throws<ArgumentException>(() => new SimpleLogicalFilter(logicalOperatorComponent.Component, _filterMock.Object));
     }
 
     [Test]
@@ -54,7 +54,7 @@ public class SimpleFilterTests
     )
     {
         // Arrange
-        SimpleFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
+        SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
         string expectedResults = $"({logicalOperatorComponent.Component}{_filterDefaultString})";
 
         // Act
@@ -71,7 +71,7 @@ public class SimpleFilterTests
     )
     {
         // Arrange
-        SimpleFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
+        SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
         string expectedResults = $"({logicalOperatorComponent.Component}{_filterDirectoryServicesString})";
 
         // Act
@@ -88,7 +88,7 @@ public class SimpleFilterTests
     )
     {
         // Arrange
-        SimpleFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
+        SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
         string expectedResults = $"({logicalOperatorComponent.Component}{_filterLdapString})";
 
         // Act

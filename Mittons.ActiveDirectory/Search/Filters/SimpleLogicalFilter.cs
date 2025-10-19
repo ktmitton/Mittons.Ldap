@@ -3,12 +3,12 @@ using Mittons.ActiveDirectory.Search.Operators;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class SimpleFilter : IFilterComponent
+    public class SimpleLogicalFilter : IFilterComponent
     {
         public LogicalOperator LogicalOperator { get; }
         public IFilter Filter { get; }
 
-        public SimpleFilter(LogicalOperator logicalOperator, IFilter filter)
+        public SimpleLogicalFilter(LogicalOperator logicalOperator, IFilter filter)
         {
             if (logicalOperator.IsCompoundOperator)
             {

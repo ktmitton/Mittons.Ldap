@@ -5,12 +5,12 @@ using Mittons.ActiveDirectory.Search.Operators;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class CompoundFilter : IFilterComponent
+    public class CompoundLogicalFilter : IFilterComponent
     {
         public LogicalOperator LogicalOperator { get; }
         public IEnumerable<IFilter> Filters { get; }
 
-        public CompoundFilter(LogicalOperator logicalOperator, IEnumerable<IFilter> filters)
+        public CompoundLogicalFilter(LogicalOperator logicalOperator, IEnumerable<IFilter> filters)
         {
             if (logicalOperator.IsSimpleOperator)
             {

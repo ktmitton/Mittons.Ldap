@@ -1,11 +1,11 @@
 using Mittons.ActiveDirectory.Search.Attributes;
-using Mittons.ActiveDirectory.Search.Items;
+using Mittons.ActiveDirectory.Search.Filters;
 using Mittons.ActiveDirectory.Search.Values;
 using Mittons.ActiveDirectory.Tests.Data;
 
-namespace Mittons.ActiveDirectory.Tests.Search.Items;
+namespace Mittons.ActiveDirectory.Tests.Search.Filters;
 
-public class SubstringItemTests
+public class SubstringItemFilterTests
 {
     [Test]
     [MatrixDataSource]
@@ -18,7 +18,7 @@ public class SubstringItemTests
     {
         // Arrange
         // Act
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
 
         // Assert
         await Assert.That(item.Attribute).IsEqualTo(attributeComponent.Component);
@@ -37,7 +37,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.DefaultString}={startValueComponent.DefaultString}{anyComponent.DefaultString}{endValueComponent.DefaultString})";
 
         // Act
@@ -57,7 +57,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString}{endValueComponent.DirectoryServicesString})";
 
         // Act
@@ -77,7 +77,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.LdapString}={startValueComponent.LdapString}{anyComponent.LdapString}{endValueComponent.LdapString})";
 
         // Act
@@ -96,7 +96,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.DefaultString}={anyComponent.DefaultString}{endValueComponent.DefaultString})";
 
         // Act
@@ -115,7 +115,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={anyComponent.DirectoryServicesString}{endValueComponent.DirectoryServicesString})";
 
         // Act
@@ -134,7 +134,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
+        SubstringItemFilter item = new(attributeComponent.Component, null, anyComponent.Component, endValueComponent.Component);
         string expectedResult = $"({attributeComponent.LdapString}={anyComponent.LdapString}{endValueComponent.LdapString})";
 
         // Act
@@ -153,7 +153,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString})";
 
         // Act
@@ -172,7 +172,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString})";
 
         // Act
@@ -191,7 +191,7 @@ public class SubstringItemTests
     )
     {
         // Arrange
-        SubstringItem item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
+        SubstringItemFilter item = new(attributeComponent.Component, startValueComponent.Component, anyComponent.Component, null);
         string expectedResult = $"({attributeComponent.LdapString}={startValueComponent.LdapString}{anyComponent.LdapString})";
 
         // Act

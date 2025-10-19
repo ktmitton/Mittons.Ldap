@@ -2,20 +2,20 @@ using Mittons.ActiveDirectory.Search.Attributes;
 using Mittons.ActiveDirectory.Search.Operators;
 using Mittons.ActiveDirectory.Search.Values;
 
-namespace Mittons.ActiveDirectory.Search.Items
+namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class SimpleItem : IItem
+    public class SimpleItemFilter : IFilterComponent
     {
         public SimpleAttribute Attribute { get; }
         public ComparisonOperator ComparisonOperator { get; }
         public SimpleValue Value { get; }
 
-        public SimpleItem(string attribute, ComparisonOperator comparisonOperator, string contents)
+        public SimpleItemFilter(string attribute, ComparisonOperator comparisonOperator, string contents)
             : this(new SimpleAttribute(attribute), comparisonOperator, new SimpleValue(contents))
         {
         }
 
-        public SimpleItem(SimpleAttribute attribute, ComparisonOperator comparisonOperator, SimpleValue value)
+        public SimpleItemFilter(SimpleAttribute attribute, ComparisonOperator comparisonOperator, SimpleValue value)
         {
             Attribute = attribute;
             ComparisonOperator = comparisonOperator;

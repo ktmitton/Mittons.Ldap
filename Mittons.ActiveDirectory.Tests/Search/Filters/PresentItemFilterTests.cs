@@ -1,10 +1,10 @@
 using Mittons.ActiveDirectory.Search.Attributes;
-using Mittons.ActiveDirectory.Search.Items;
+using Mittons.ActiveDirectory.Search.Filters;
 using Mittons.ActiveDirectory.Tests.Data;
 
-namespace Mittons.ActiveDirectory.Tests.Search.Items;
+namespace Mittons.ActiveDirectory.Tests.Search.Filters;
 
-public class PresentItemTests
+public class PresentItemFilterTests
 {
     [Test]
     [MatrixDataSource]
@@ -14,7 +14,7 @@ public class PresentItemTests
     {
         // Arrange
         // Act
-        PresentItem item = new(attributeComponent.Component);
+        PresentItemFilter item = new(attributeComponent.Component);
 
         // Assert
         await Assert.That(item.Attribute).IsEqualTo(attributeComponent.Component);
@@ -27,7 +27,7 @@ public class PresentItemTests
     )
     {
         // Arrange
-        PresentItem item = new(attributeComponent.Component);
+        PresentItemFilter item = new(attributeComponent.Component);
         string expectedResult = $"({attributeComponent.DefaultString}=*)";
 
         // Act
@@ -44,7 +44,7 @@ public class PresentItemTests
     )
     {
         // Arrange
-        PresentItem item = new(attributeComponent.Component);
+        PresentItemFilter item = new(attributeComponent.Component);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}=*)";
 
         // Act
@@ -61,7 +61,7 @@ public class PresentItemTests
     )
     {
         // Arrange
-        PresentItem item = new(attributeComponent.Component);
+        PresentItemFilter item = new(attributeComponent.Component);
         string expectedResult = $"({attributeComponent.LdapString}=*)";
 
         // Act

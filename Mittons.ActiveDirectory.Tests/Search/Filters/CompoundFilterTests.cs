@@ -17,7 +17,7 @@ public class CompoundFilterTests
     {
         // Arrange
         // Act
-        CompoundFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
+        CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
 
         // Assert
         await Assert.That(compoundFilter.LogicalOperator).IsEqualTo(logicalOperatorComponent.Component);
@@ -33,7 +33,7 @@ public class CompoundFilterTests
         // Arrange
         // Act
         // Assert
-        Assert.Throws<ArgumentException>(() => new CompoundFilter(logicalOperatorComponent.Component, [Mock.Of<IFilter>()]));
+        Assert.Throws<ArgumentException>(() => new CompoundLogicalFilter(logicalOperatorComponent.Component, [Mock.Of<IFilter>()]));
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class CompoundFilterTests
     )
     {
         // Arrange
-        CompoundFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
+        CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
         string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.defaultString))})";
 
         // Act
@@ -62,7 +62,7 @@ public class CompoundFilterTests
     )
     {
         // Arrange
-        CompoundFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
+        CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
         string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.directoryServicesString))})";
 
         // Act
@@ -80,7 +80,7 @@ public class CompoundFilterTests
     )
     {
         // Arrange
-        CompoundFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
+        CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
         string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.ldapString))})";
 
         // Act

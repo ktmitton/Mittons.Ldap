@@ -1,12 +1,12 @@
 using Mittons.ActiveDirectory.Search.Attributes;
-using Mittons.ActiveDirectory.Search.Items;
+using Mittons.ActiveDirectory.Search.Filters;
 using Mittons.ActiveDirectory.Search.Operators;
 using Mittons.ActiveDirectory.Search.Values;
 using Mittons.ActiveDirectory.Tests.Data;
 
-namespace Mittons.ActiveDirectory.Tests.Search.Items;
+namespace Mittons.ActiveDirectory.Tests.Search.Filters;
 
-public class SimpleItemTests
+public class SimpleItemFilterTests
 {
     [Test]
     [MatrixDataSource]
@@ -18,7 +18,7 @@ public class SimpleItemTests
     {
         // Arrange
         // Act
-        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        SimpleItemFilter item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
 
         // Assert
         await Assert.That(item.Attribute).IsEqualTo(attributeComponent.Component);
@@ -35,7 +35,7 @@ public class SimpleItemTests
     )
     {
         // Arrange
-        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        SimpleItemFilter item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
         string expectedResult = $"({attributeComponent.DefaultString}{comparisonOperatorComponent.DefaultString}{valueComponent.DefaultString})";
 
         // Act
@@ -54,7 +54,7 @@ public class SimpleItemTests
     )
     {
         // Arrange
-        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        SimpleItemFilter item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
         string expectedResult = $"({attributeComponent.DirectoryServicesString}{comparisonOperatorComponent.DirectoryServicesString}{valueComponent.DirectoryServicesString})";
 
         // Act
@@ -73,7 +73,7 @@ public class SimpleItemTests
     )
     {
         // Arrange
-        SimpleItem item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
+        SimpleItemFilter item = new(attributeComponent.Component, comparisonOperatorComponent.Component, valueComponent.Component);
         string expectedResult = $"({attributeComponent.LdapString}{comparisonOperatorComponent.LdapString}{valueComponent.LdapString})";
 
         // Act

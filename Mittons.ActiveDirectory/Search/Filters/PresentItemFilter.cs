@@ -1,12 +1,12 @@
 using Mittons.ActiveDirectory.Search.Attributes;
 
-namespace Mittons.ActiveDirectory.Search.Items
+namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class PresentItem : IItem
+    public class PresentItemFilter : IFilterComponent
     {
         public SimpleAttribute Attribute { get; }
 
-        public PresentItem(SimpleAttribute attribute)
+        public PresentItemFilter(SimpleAttribute attribute)
         {
             Attribute = attribute;
         }

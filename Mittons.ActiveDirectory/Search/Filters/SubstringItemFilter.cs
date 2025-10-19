@@ -1,16 +1,16 @@
 using Mittons.ActiveDirectory.Search.Attributes;
 using Mittons.ActiveDirectory.Search.Values;
 
-namespace Mittons.ActiveDirectory.Search.Items
+namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class SubstringItem : IItem
+    public class SubstringItemFilter : IFilterComponent
     {
         public SimpleAttribute Attribute { get; set; }
         public SimpleValue? StartValue { get; set; }
         public WildcardValue Value { get; set; }
         public SimpleValue? EndValue { get; set; }
 
-        public SubstringItem(SimpleAttribute attribute, SimpleValue? startValue, WildcardValue value, SimpleValue? endValue)
+        public SubstringItemFilter(SimpleAttribute attribute, SimpleValue? startValue, WildcardValue value, SimpleValue? endValue)
         {
             Attribute = attribute;
             StartValue = startValue;
