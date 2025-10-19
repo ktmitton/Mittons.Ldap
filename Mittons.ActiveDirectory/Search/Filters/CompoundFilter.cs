@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class CompoundFilter : IFilter
+    public class CompoundFilter : IFilterComponent
     {
         public LogicalOperator LogicalOperator { get; }
         public IEnumerable<IFilter> Filters { get; }

@@ -2,7 +2,7 @@ using System;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {
-    public class SimpleFilter : IFilter
+    public class SimpleFilter : IFilterComponent
     {
         public LogicalOperator LogicalOperator { get; }
         public IFilter Filter { get; }
