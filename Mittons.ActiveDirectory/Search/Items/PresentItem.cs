@@ -1,6 +1,6 @@
 namespace Mittons.ActiveDirectory.Search.Items
 {
-    public class PresentItem
+    public class PresentItem : IItem
     {
         public Attribute Attribute { get; }
 

@@ -2,7 +2,7 @@ using Mittons.ActiveDirectory.Search.Values;
 
 namespace Mittons.ActiveDirectory.Search.Items
 {
-    public class SubstringItem
+    public class SubstringItem : IItem
     {
         public Attribute Attribute { get; set; }
         public SimpleValue? StartValue { get; set; }

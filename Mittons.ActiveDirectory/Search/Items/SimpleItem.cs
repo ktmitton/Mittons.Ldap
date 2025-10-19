@@ -2,7 +2,7 @@ using Mittons.ActiveDirectory.Search.Values;
 
 namespace Mittons.ActiveDirectory.Search.Items
 {
-    public class SimpleItem
+    public class SimpleItem : IItem
     {
         public Attribute Attribute { get; }
         public ComparisonOperator ComparisonOperator { get; }

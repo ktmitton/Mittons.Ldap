@@ -9,18 +9,36 @@ public record ComponentData<T>(T Component, string DefaultString, string Directo
 
 public class ComponentDataDatasource
 {
-    public static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
-    {
-        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
-        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
-    }
-
     public static IEnumerable<ComponentData<ComparisonOperator>> ComparisonOperatorsDatasource()
     {
         yield return new ComponentData<ComparisonOperator>(ComparisonOperator.Equality, "=", "=", "=");
         yield return new ComponentData<ComparisonOperator>(ComparisonOperator.ApproximateMatch, "~=", "~=", "~=");
         yield return new ComponentData<ComparisonOperator>(ComparisonOperator.GreaterThanOrEqual, ">=", ">=", ">=");
         yield return new ComponentData<ComparisonOperator>(ComparisonOperator.LessThanOrEqual, "<=", "<=", "<=");
+    }
+
+    public static IEnumerable<ComponentData<LogicalOperator>> LogicalOperatorsDatasource()
+    {
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.And, "&", "&", "&");
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.Or, "|", "|", "|");
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.Not, "!", "!", "!");
+    }
+
+    public static IEnumerable<ComponentData<LogicalOperator>> SimpleLogicalOperatorsDatasource()
+    {
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.Not, "!", "!", "!");
+    }
+
+    public static IEnumerable<ComponentData<LogicalOperator>> CompoundLogicalOperatorsDatasource()
+    {
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.And, "&", "&", "&");
+        yield return new ComponentData<LogicalOperator>(LogicalOperator.Or, "|", "|", "|");
+    }
+
+    public static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
+    {
+        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
+        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
     }
 
     public static IEnumerable<ComponentData<SimpleValue>> SimpleValuesDatasource()
