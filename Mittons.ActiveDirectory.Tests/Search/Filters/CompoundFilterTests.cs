@@ -38,17 +38,17 @@ public class CompoundFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.CompoundLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent,
         [MatrixMethod<CompoundFilterTests>(nameof(RandomFiltersDatasource))] (Mock<IFilter> filter, string defaultString, string directoryServicesString, string ldapString)[] filters
     )
     {
         // Arrange
         CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
-        string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.defaultString))})";
+        string expectedResults = $"({logicalOperatorComponent.Component.DefaultString}{string.Join(string.Empty, filters.Select(f => f.defaultString))})";
 
         // Act
-        string actualResult = compoundFilter.ToString();
+        string actualResult = compoundFilter.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
@@ -56,17 +56,17 @@ public class CompoundFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.CompoundLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent,
         [MatrixMethod<CompoundFilterTests>(nameof(RandomFiltersDatasource))] (Mock<IFilter> filter, string defaultString, string directoryServicesString, string ldapString)[] filters
     )
     {
         // Arrange
         CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
-        string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.directoryServicesString))})";
+        string expectedResults = $"({logicalOperatorComponent.Component.DirectoryServicesString}{string.Join(string.Empty, filters.Select(f => f.directoryServicesString))})";
 
         // Act
-        string actualResult = compoundFilter.ToDirectoryServicesString();
+        string actualResult = compoundFilter.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
@@ -74,17 +74,17 @@ public class CompoundFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.CompoundLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent,
         [MatrixMethod<CompoundFilterTests>(nameof(RandomFiltersDatasource))] (Mock<IFilter> filter, string defaultString, string directoryServicesString, string ldapString)[] filters
     )
     {
         // Arrange
         CompoundLogicalFilter compoundFilter = new(logicalOperatorComponent.Component, filters.Select(f => f.filter.Object));
-        string expectedResults = $"({logicalOperatorComponent.Component}{string.Join(string.Empty, filters.Select(f => f.ldapString))})";
+        string expectedResults = $"({logicalOperatorComponent.Component.LdapString}{string.Join(string.Empty, filters.Select(f => f.ldapString))})";
 
         // Act
-        string actualResult = compoundFilter.ToLdapString();
+        string actualResult = compoundFilter.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
@@ -101,9 +101,9 @@ public class CompoundFilterTests
                 string ldapString = Guid.NewGuid().ToString();
 
                 Mock<IFilter> filterMock = new();
-                filterMock.Setup(f => f.ToString()).Returns(defaultString);
-                filterMock.Setup(f => f.ToDirectoryServicesString()).Returns(directoryServicesString);
-                filterMock.Setup(f => f.ToLdapString()).Returns(ldapString);
+                filterMock.Setup(f => f.DefaultString).Returns(defaultString);
+                filterMock.Setup(f => f.DirectoryServicesString).Returns(directoryServicesString);
+                filterMock.Setup(f => f.LdapString).Returns(ldapString);
 
                 return (filterMock, defaultString, directoryServicesString, ldapString);
             })];

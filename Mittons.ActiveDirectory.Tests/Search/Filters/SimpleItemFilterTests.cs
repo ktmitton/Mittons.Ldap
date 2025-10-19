@@ -28,7 +28,7 @@ public class SimpleItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
@@ -39,7 +39,7 @@ public class SimpleItemFilterTests
         string expectedResult = $"({attributeComponent.DefaultString}{comparisonOperatorComponent.DefaultString}{valueComponent.DefaultString})";
 
         // Act
-        string actualResult = item.ToString();
+        string actualResult = item.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -47,7 +47,7 @@ public class SimpleItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
@@ -58,7 +58,7 @@ public class SimpleItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}{comparisonOperatorComponent.DirectoryServicesString}{valueComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToDirectoryServicesString();
+        string actualResult = item.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -66,7 +66,7 @@ public class SimpleItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.ComparisonOperatorsDatasource))] ComponentData<ComparisonOperator> comparisonOperatorComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
@@ -77,7 +77,7 @@ public class SimpleItemFilterTests
         string expectedResult = $"({attributeComponent.LdapString}{comparisonOperatorComponent.LdapString}{valueComponent.LdapString})";
 
         // Act
-        string actualResult = item.ToLdapString();
+        string actualResult = item.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);

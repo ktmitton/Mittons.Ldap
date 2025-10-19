@@ -22,7 +22,7 @@ public class PresentItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
@@ -31,7 +31,7 @@ public class PresentItemFilterTests
         string expectedResult = $"({attributeComponent.DefaultString}=*)";
 
         // Act
-        string actualResult = item.ToString();
+        string actualResult = item.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -39,7 +39,7 @@ public class PresentItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
@@ -48,7 +48,7 @@ public class PresentItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}=*)";
 
         // Act
-        string actualResult = item.ToDirectoryServicesString();
+        string actualResult = item.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -56,7 +56,7 @@ public class PresentItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
@@ -65,7 +65,7 @@ public class PresentItemFilterTests
         string expectedResult = $"({attributeComponent.LdapString}=*)";
 
         // Act
-        string actualResult = item.ToLdapString();
+        string actualResult = item.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);

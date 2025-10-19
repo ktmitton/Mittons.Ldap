@@ -15,9 +15,9 @@ public class SimpleFilterTests
 
     public SimpleFilterTests()
     {
-        _filterMock.Setup(f => f.ToString()).Returns(_filterDefaultString);
-        _filterMock.Setup(f => f.ToDirectoryServicesString()).Returns(_filterDirectoryServicesString);
-        _filterMock.Setup(f => f.ToLdapString()).Returns(_filterLdapString);
+        _filterMock.Setup(f => f.DefaultString).Returns(_filterDefaultString);
+        _filterMock.Setup(f => f.DirectoryServicesString).Returns(_filterDirectoryServicesString);
+        _filterMock.Setup(f => f.LdapString).Returns(_filterLdapString);
     }
 
     [Test]
@@ -49,16 +49,16 @@ public class SimpleFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent
     )
     {
         // Arrange
         SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
-        string expectedResults = $"({logicalOperatorComponent.Component}{_filterDefaultString})";
+        string expectedResults = $"({logicalOperatorComponent.Component.DefaultString}{_filterDefaultString})";
 
         // Act
-        string actualResult = simpleFilter.ToString();
+        string actualResult = simpleFilter.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
@@ -66,16 +66,16 @@ public class SimpleFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent
     )
     {
         // Arrange
         SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
-        string expectedResults = $"({logicalOperatorComponent.Component}{_filterDirectoryServicesString})";
+        string expectedResults = $"({logicalOperatorComponent.Component.DirectoryServicesString}{_filterDirectoryServicesString})";
 
         // Act
-        string actualResult = simpleFilter.ToDirectoryServicesString();
+        string actualResult = simpleFilter.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
@@ -83,16 +83,16 @@ public class SimpleFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleLogicalOperatorsDatasource))] ComponentData<LogicalOperator> logicalOperatorComponent
     )
     {
         // Arrange
         SimpleLogicalFilter simpleFilter = new(logicalOperatorComponent.Component, _filterMock.Object);
-        string expectedResults = $"({logicalOperatorComponent.Component}{_filterLdapString})";
+        string expectedResults = $"({logicalOperatorComponent.Component.LdapString}{_filterLdapString})";
 
         // Act
-        string actualResult = simpleFilter.ToLdapString();
+        string actualResult = simpleFilter.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);

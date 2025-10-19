@@ -29,7 +29,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
@@ -41,7 +41,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DefaultString}={startValueComponent.DefaultString}{anyComponent.DefaultString}{endValueComponent.DefaultString})";
 
         // Act
-        string actualResult = item.ToString();
+        string actualResult = item.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -49,7 +49,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
@@ -61,7 +61,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString}{endValueComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToDirectoryServicesString();
+        string actualResult = item.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -69,7 +69,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
@@ -81,7 +81,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.LdapString}={startValueComponent.LdapString}{anyComponent.LdapString}{endValueComponent.LdapString})";
 
         // Act
-        string actualResult = item.ToLdapString();
+        string actualResult = item.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -89,7 +89,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalledWithNoStartWildcard_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalledWithNoStartWildcard_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -100,7 +100,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DefaultString}={anyComponent.DefaultString}{endValueComponent.DefaultString})";
 
         // Act
-        string actualResult = item.ToString();
+        string actualResult = item.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -108,7 +108,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalledWithNoStartWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalledWithNoStartWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -119,7 +119,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={anyComponent.DirectoryServicesString}{endValueComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToDirectoryServicesString();
+        string actualResult = item.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -127,7 +127,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalledWithNoStartWildcard_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalledWithNoStartWildcard_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -138,7 +138,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.LdapString}={anyComponent.LdapString}{endValueComponent.LdapString})";
 
         // Act
-        string actualResult = item.ToLdapString();
+        string actualResult = item.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -146,7 +146,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalledWithNoEndWildcard_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalledWithNoEndWildcard_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
@@ -157,7 +157,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToString();
+        string actualResult = item.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -165,7 +165,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalledWithNoEndWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalledWithNoEndWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
@@ -176,7 +176,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.DirectoryServicesString}={startValueComponent.DirectoryServicesString}{anyComponent.DirectoryServicesString})";
 
         // Act
-        string actualResult = item.ToDirectoryServicesString();
+        string actualResult = item.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -184,7 +184,7 @@ public class SubstringItemFilterTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalledWithNoEndWildcard_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalledWithNoEndWildcard_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
@@ -195,7 +195,7 @@ public class SubstringItemFilterTests
         string expectedResult = $"({attributeComponent.LdapString}={startValueComponent.LdapString}{anyComponent.LdapString})";
 
         // Act
-        string actualResult = item.ToLdapString();
+        string actualResult = item.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);

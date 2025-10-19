@@ -12,9 +12,9 @@ public class FilterTests
 
     public FilterTests()
     {
-        _filterComponentMock.Setup(f => f.ToString()).Returns(_filterDefaultString);
-        _filterComponentMock.Setup(f => f.ToDirectoryServicesString()).Returns(_filterDirectoryServicesString);
-        _filterComponentMock.Setup(f => f.ToLdapString()).Returns(_filterLdapString);
+        _filterComponentMock.Setup(f => f.DefaultString).Returns(_filterDefaultString);
+        _filterComponentMock.Setup(f => f.DirectoryServicesString).Returns(_filterDirectoryServicesString);
+        _filterComponentMock.Setup(f => f.LdapString).Returns(_filterLdapString);
     }
 
     [Test]
@@ -38,42 +38,42 @@ public class FilterTests
     }
 
     [Test]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned()
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned()
     {
         // Arrange
         Filter filter = new(_filterComponentMock.Object);
         string expectedResults = $"({_filterDefaultString})";
 
         // Act
-        string actualResult = filter.ToString();
+        string actualResult = filter.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
     }
 
     [Test]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned()
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned()
     {
         // Arrange
         Filter filter = new(_filterComponentMock.Object);
         string expectedResults = $"({_filterDirectoryServicesString})";
 
         // Act
-        string actualResult = filter.ToDirectoryServicesString();
+        string actualResult = filter.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);
     }
 
     [Test]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned()
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned()
     {
         // Arrange
         Filter filter = new(_filterComponentMock.Object);
         string expectedResults = $"({_filterLdapString})";
 
         // Act
-        string actualResult = filter.ToLdapString();
+        string actualResult = filter.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResults);

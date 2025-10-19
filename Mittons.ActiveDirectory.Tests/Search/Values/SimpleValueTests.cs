@@ -21,7 +21,7 @@ public class SimpleValueTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
+    public async Task DefaultString_WhenCalled_ExpectTheDefaultStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
     )
     {
@@ -29,7 +29,7 @@ public class SimpleValueTests
         string expectedResult = valueComponent.DefaultString;
 
         // Act
-        string actualResult = valueComponent.Component.ToString();
+        string actualResult = valueComponent.Component.DefaultString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -37,7 +37,7 @@ public class SimpleValueTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
+    public async Task DirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
     )
     {
@@ -45,7 +45,7 @@ public class SimpleValueTests
         string expectedResult = valueComponent.DirectoryServicesString;
 
         // Act
-        string actualResult = valueComponent.Component.ToDirectoryServicesString();
+        string actualResult = valueComponent.Component.DirectoryServicesString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
@@ -53,7 +53,7 @@ public class SimpleValueTests
 
     [Test]
     [MatrixDataSource]
-    public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
+    public async Task LdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesDatasource))] ComponentData<SimpleValue> valueComponent
     )
     {
@@ -61,7 +61,7 @@ public class SimpleValueTests
         string expectedResult = valueComponent.LdapString;
 
         // Act
-        string actualResult = valueComponent.Component.ToLdapString();
+        string actualResult = valueComponent.Component.LdapString;
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
