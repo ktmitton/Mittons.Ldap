@@ -6,6 +6,15 @@ namespace Mittons.ActiveDirectory.Search.Filters
     {
         public IFilterComponent FilterComponent { get; }
 
+        public string DefaultString
+            => $"({FilterComponent.DefaultString})";
+
+        public string DirectoryServicesString
+            => $"({FilterComponent.DirectoryServicesString})";
+
+        public string LdapString
+            => $"({FilterComponent.LdapString})";
+
         public Filter(IFilterComponent filterComponent)
         {
             if (filterComponent is null)
@@ -17,9 +26,5 @@ namespace Mittons.ActiveDirectory.Search.Filters
 
             FilterComponent = filterComponent;
         }
-
-        public override string ToString() => $"({FilterComponent})";
-        public string ToDirectoryServicesString() => $"({FilterComponent.ToDirectoryServicesString()})";
-        public string ToLdapString() => $"({FilterComponent.ToLdapString()})";
     }
 }

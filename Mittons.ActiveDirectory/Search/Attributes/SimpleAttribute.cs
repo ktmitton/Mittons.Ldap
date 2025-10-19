@@ -1,6 +1,6 @@
 namespace Mittons.ActiveDirectory.Search.Attributes
 {
-    public class SimpleAttribute
+    public class SimpleAttribute : IAttribute
     {
         public string Contents { get; }
 
@@ -9,10 +9,10 @@ namespace Mittons.ActiveDirectory.Search.Attributes
             Contents = contents;
         }
 
-        public override string ToString() => Contents;
+        public string DefaultString => Contents;
 
-        public string ToDirectoryServicesString() => ToString();
+        public string DirectoryServicesString => Contents;
 
-        public string ToLdapString() => ToString();
+        public string LdapString => Contents;
     }
 }

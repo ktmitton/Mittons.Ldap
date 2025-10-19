@@ -1,6 +1,6 @@
 namespace Mittons.ActiveDirectory.Search.Operators
 {
-    public class LogicalOperator
+    public class LogicalOperator : ISearchComponent
     {
         public static readonly LogicalOperator And = new LogicalOperator("And", "&", false);
         public static readonly LogicalOperator Or = new LogicalOperator("Or", "|", false);
@@ -11,6 +11,12 @@ namespace Mittons.ActiveDirectory.Search.Operators
         public bool IsSimpleOperator { get; }
         public bool IsCompoundOperator => !IsSimpleOperator;
 
+        public string DefaultString => StringLiteral;
+
+        public string DirectoryServicesString => StringLiteral;
+
+        public string LdapString => StringLiteral;
+
         private LogicalOperator(string name, string stringLiteral, bool isSimpleOperator)
         {
             Name = name;
@@ -18,6 +24,6 @@ namespace Mittons.ActiveDirectory.Search.Operators
             IsSimpleOperator = isSimpleOperator;
         }
 
-        public override string ToString() => StringLiteral;
+        public override string ToString() => Name;
     }
 }

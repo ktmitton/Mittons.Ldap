@@ -10,6 +10,15 @@ namespace Mittons.ActiveDirectory.Search.Filters
         public WildcardValue Value { get; set; }
         public SimpleValue? EndValue { get; set; }
 
+        public string DefaultString
+            => $"({Attribute.DefaultString}={StartValue?.DefaultString}{Value.DefaultString}{EndValue?.DefaultString})";
+
+        public string DirectoryServicesString
+            => $"({Attribute.DirectoryServicesString}={StartValue?.DirectoryServicesString}{Value.DirectoryServicesString}{EndValue?.DirectoryServicesString})";
+
+        public string LdapString
+            => $"({Attribute.LdapString}={StartValue?.LdapString}{Value.LdapString}{EndValue?.LdapString})";
+
         public SubstringItemFilter(SimpleAttribute attribute, SimpleValue? startValue, WildcardValue value, SimpleValue? endValue)
         {
             Attribute = attribute;
@@ -17,14 +26,5 @@ namespace Mittons.ActiveDirectory.Search.Filters
             Value = value;
             EndValue = endValue;
         }
-
-        public override string ToString()
-            => $"({Attribute}={StartValue}{Value}{EndValue})";
-
-        public string ToDirectoryServicesString()
-            => $"({Attribute.ToDirectoryServicesString()}={StartValue?.ToDirectoryServicesString()}{Value.ToDirectoryServicesString()}{EndValue?.ToDirectoryServicesString()})";
-
-        public string ToLdapString()
-            => $"({Attribute.ToLdapString()}={StartValue?.ToLdapString()}{Value.ToLdapString()}{EndValue?.ToLdapString()})";
     }
 }

@@ -6,15 +6,18 @@ namespace Mittons.ActiveDirectory.Search.Filters
     {
         public SimpleAttribute Attribute { get; }
 
+        public string DefaultString
+            => $"({Attribute.DefaultString}=*)";
+
+        public string DirectoryServicesString
+            => $"({Attribute.DirectoryServicesString}=*)";
+
+        public string LdapString
+            => $"({Attribute.LdapString}=*)";
+
         public PresentItemFilter(SimpleAttribute attribute)
         {
             Attribute = attribute;
         }
-
-        public override string ToString() => $"({Attribute}=*)";
-
-        public string ToDirectoryServicesString() => $"({Attribute.ToDirectoryServicesString()}=*)";
-
-        public string ToLdapString() => $"({Attribute.ToLdapString()}=*)";
     }
 }

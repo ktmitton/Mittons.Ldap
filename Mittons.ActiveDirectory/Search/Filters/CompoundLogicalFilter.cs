@@ -10,6 +10,14 @@ namespace Mittons.ActiveDirectory.Search.Filters
         public LogicalOperator LogicalOperator { get; }
         public IEnumerable<IFilter> Filters { get; }
 
+        public string DefaultString
+            => $"({LogicalOperator.DefaultString}{string.Join(string.Empty, Filters.Select(f => f.DefaultString))})";
+
+        public string DirectoryServicesString
+            => $"({LogicalOperator.DirectoryServicesString}{string.Join(string.Empty, Filters.Select(f => f.DirectoryServicesString))})";
+
+        public string LdapString
+            => $"({LogicalOperator.LdapString}{string.Join(string.Empty, Filters.Select(f => f.LdapString))})";
         public CompoundLogicalFilter(LogicalOperator logicalOperator, IEnumerable<IFilter> filters)
         {
             if (logicalOperator.IsSimpleOperator)
@@ -20,9 +28,5 @@ namespace Mittons.ActiveDirectory.Search.Filters
             LogicalOperator = logicalOperator;
             Filters = filters;
         }
-
-        public override string ToString() => $"({LogicalOperator}{string.Join(string.Empty, Filters)})";
-        public string ToDirectoryServicesString() => $"({LogicalOperator}{string.Join(string.Empty, Filters.Select(f => f.ToDirectoryServicesString()))})";
-        public string ToLdapString() => $"({LogicalOperator}{string.Join(string.Empty, Filters.Select(f => f.ToLdapString()))})";
     }
 }

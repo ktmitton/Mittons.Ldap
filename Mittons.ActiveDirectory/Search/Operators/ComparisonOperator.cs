@@ -1,6 +1,6 @@
 namespace Mittons.ActiveDirectory.Search.Operators
 {
-    public class ComparisonOperator
+    public class ComparisonOperator : ISearchComponent
     {
         public static readonly ComparisonOperator Equality = new ComparisonOperator("Equality", "=");
         public static readonly ComparisonOperator ApproximateMatch = new ComparisonOperator("ApproximateMatch", "~=");
@@ -10,12 +10,18 @@ namespace Mittons.ActiveDirectory.Search.Operators
         public string Name { get; }
         public string StringLiteral { get; }
 
+        public string DefaultString => StringLiteral;
+
+        public string DirectoryServicesString => StringLiteral;
+
+        public string LdapString => StringLiteral;
+
         private ComparisonOperator(string name, string stringLiteral)
         {
             Name = name;
             StringLiteral = stringLiteral;
         }
 
-        public override string ToString() => StringLiteral;
+        public override string ToString() => Name;
     }
 }
