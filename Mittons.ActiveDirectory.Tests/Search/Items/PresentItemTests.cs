@@ -1,14 +1,16 @@
-using Mittons.ActiveDirectory.Search;
+using Mittons.ActiveDirectory.Search.Items;
+using Mittons.ActiveDirectory.Tests.Data;
+
 using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
-namespace Mittons.ActiveDirectory.Tests.Search;
+namespace Mittons.ActiveDirectory.Tests.Search.Items;
 
 public class PresentItemTests
 {
     [Test]
     [MatrixDataSource]
     public async Task Ctor_WhenCreated_ExpectPropertiesToBeSet(
-        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
@@ -22,7 +24,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
-        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
@@ -39,7 +41,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
-        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
@@ -56,7 +58,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
-        [MatrixMethod<PresentItemTests>(nameof(AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
     )
     {
         // Arrange
@@ -68,13 +70,5 @@ public class PresentItemTests
 
         // Assert
         await Assert.That(actualResult).IsEqualTo(expectedResult);
-    }
-
-    public record ComponentData<T>(T Component, string DefaultString, string DirectoryServicesString, string LdapString);
-
-    private static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
-    {
-        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
-        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
     }
 }
