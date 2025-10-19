@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>Mittons.Ldap.Core</PackageId>
-    <PackageVersion>1.0.0-preview.1</PackageVersion>
+    <PackageVersion>1.0.0-preview.2</PackageVersion>
     <Authors>Kenneth Mitton</Authors>
     <Description>Core features needed for interacting with LDAP services.</Description>
     <Copyright>Copyright (c) Kenneth Mitton 2025</Copyright>
@@ -18,6 +18,11 @@
     <PackageTags>ldap;active-directory</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IsPackable>true</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
 </Project>
