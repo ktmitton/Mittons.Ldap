@@ -8,6 +8,7 @@ namespace Mittons.ActiveDirectory.Search.Builders
     public interface IFluentUnknownFilterPendingAttributeBuilder
     {
         IFluentUnknownFilterPendingConditionBuilder Attribute(string attribute);
+        IFluentUnknownFilterPendingNextFilterBuilder Has(IFilter filter);
     }
 
     public interface IFluentUnknownFilterPendingConditionBuilder
@@ -70,6 +71,13 @@ namespace Mittons.ActiveDirectory.Search.Builders
         IFluentUnknownFilterPendingDoesValueBuilder IFluentUnknownFilterPendingDoesValueBuilder.Not
             => Negate();
 
+        private FluentUnknownFilterBuilder Negate()
+        {
+            _negate = true;
+
+            return this;
+        }
+
         public IFluentOrFilterBuilder Or
             => new FluentCompoundLogicalFilterBuilder(
                 _filter ?? throw new System.InvalidOperationException("No filter has been built."),
@@ -82,9 +90,9 @@ namespace Mittons.ActiveDirectory.Search.Builders
                 LogicalOperator.And
             );
 
-        private FluentUnknownFilterBuilder Negate()
+        private FluentUnknownFilterBuilder SetFilter(IFilter filter)
         {
-            _negate = true;
+            _filter = _negate ? new SimpleLogicalFilter(LogicalOperator.Not, filter) : filter;
 
             return this;
         }
@@ -96,218 +104,52 @@ namespace Mittons.ActiveDirectory.Search.Builders
             return this;
         }
 
+        public IFluentUnknownFilterPendingNextFilterBuilder Has(IFilter filter)
+        {
+            return SetFilter(filter);
+        }
+
         public IFluentUnknownFilterPendingNextFilterBuilder EqualTo(string value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.Equality, new SimpleValue(value));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder Exist()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder GreaterThan(int value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue((value + 1).ToString()));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder GreaterThanOrEqualTo(string value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue(value));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder LessThan(int value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue((value - 1).ToString()));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder LessThanOrEqualTo(string value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue(value));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder Like(string value, bool hasLeadingWildcard = false, bool hasTrailingWildcard = false)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new WildcardValue(value, hasLeadingWildcard, hasTrailingWildcard));
-
-            return this;
-        }
-
-        public IFluentUnknownFilterPendingNextFilterBuilder StartWith(string value)
-        {
-            _filter = new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new SimpleValue(value));
-
-            return this;
-        }
-
-        public IFilter Build()
-            => _filter ?? throw new System.InvalidOperationException("No filter has been built.");
-    }
-
-    public class FluentUnknownFilterPendingAttributeBuilder
-    {
-        public FluentUnknownFilterPendingConditionBuilder Attribute(string attribute)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    public class FluentUnknownFilterPendingConditionBuilder
-    {
-        private readonly string _attribute;
-
-        public FluentUnknownFilterPendingConditionBuilder(string attribute)
-        {
-            _attribute = attribute;
-        }
-
-        public FluentUnknownFilterPendingNextFilterBuilder Exists
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new PresentItemFilter(new SimpleAttribute(_attribute))
-            );
-
-        public FluentUnknownFilterPendingIsNotValueBuilder IsNot
-            => new FluentUnknownFilterPendingIsNotValueBuilder(_attribute);
-        public FluentUnknownFilterPendingDoesNotValueBuilder DoesNot
-            => new FluentUnknownFilterPendingDoesNotValueBuilder(_attribute);
-
-        public FluentUnknownFilterPendingNextFilterBuilder IsEqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.Equality, new SimpleValue(value))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder IsGreaterThan(int value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+        public IFluentUnknownFilterPendingNextFilterBuilder Exist()
+            => SetFilter(
+                new PresentItemFilter(new SimpleAttribute(_attribute))
+            );
+
+        public IFluentUnknownFilterPendingNextFilterBuilder GreaterThan(int value)
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue((value + 1).ToString()))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder IsGreaterThanOrEqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+        public IFluentUnknownFilterPendingNextFilterBuilder GreaterThanOrEqualTo(string value)
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue(value))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder IsLessThan(int value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+        public IFluentUnknownFilterPendingNextFilterBuilder LessThan(int value)
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue((value - 1).ToString()))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder IsLessThanOrEqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+        public IFluentUnknownFilterPendingNextFilterBuilder LessThanOrEqualTo(string value)
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue(value))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder StartsWith(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
+        public IFluentUnknownFilterPendingNextFilterBuilder Like(string value, bool hasLeadingWildcard = false, bool hasTrailingWildcard = false)
+            => SetFilter(
+                new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new WildcardValue(value, hasLeadingWildcard, hasTrailingWildcard))
+            );
+
+        public IFluentUnknownFilterPendingNextFilterBuilder StartWith(string value)
+            => SetFilter(
                 new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new SimpleValue(value))
             );
 
-        public FluentUnknownFilterPendingNextFilterBuilder IsLike(string value, bool hasLeadingWildcard = false, bool hasTrailingWildcard = false)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new WildcardValue(value, hasLeadingWildcard, hasTrailingWildcard))
-            );
-    }
-
-    public class FluentUnknownFilterPendingIsNotValueBuilder
-    {
-        private readonly string _attribute;
-
-        public FluentUnknownFilterPendingIsNotValueBuilder(string attribute)
-        {
-            _attribute = attribute;
-        }
-
-        public FluentUnknownFilterPendingNextFilterBuilder EqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.Equality, new SimpleValue(value))
-                )
-            );
-
-        public FluentUnknownFilterPendingNextFilterBuilder GreaterThan(int value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue((value + 1).ToString()))
-                )
-            );
-
-        public FluentUnknownFilterPendingNextFilterBuilder GreaterThanOrEqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.GreaterThanOrEqual, new SimpleValue(value))
-                )
-            );
-
-        public FluentUnknownFilterPendingNextFilterBuilder LessThan(int value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue((value - 1).ToString()))
-                )
-            );
-
-        public FluentUnknownFilterPendingNextFilterBuilder LessThanOrEqualTo(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.LessThanOrEqual, new SimpleValue(value))
-                )
-            );
-
-        public FluentUnknownFilterPendingNextFilterBuilder Like(string value, bool hasLeadingWildcard = false, bool hasTrailingWildcard = false)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new WildcardValue(value, hasLeadingWildcard, hasTrailingWildcard))
-                )
-            );
-    }
-
-    public class FluentUnknownFilterPendingDoesNotValueBuilder
-    {
-        private readonly string _attribute;
-
-        public FluentUnknownFilterPendingDoesNotValueBuilder(string attribute)
-        {
-            _attribute = attribute;
-        }
-
-        public FluentUnknownFilterPendingNextFilterBuilder StartsWith(string value)
-            => new FluentUnknownFilterPendingNextFilterBuilder(
-                new SimpleLogicalFilter(
-                    LogicalOperator.Not,
-                    new SimpleItemFilter(new SimpleAttribute(_attribute), ComparisonOperator.ApproximateMatch, new SimpleValue(value))
-                )
-            );
-    }
-
-    public class FluentUnknownFilterPendingNextFilterBuilder
-    {
-        private readonly IFilter _filter;
-
-        public FluentUnknownFilterPendingNextFilterBuilder(IFilter filter)
-        {
-            _filter = filter;
-        }
-
-        public IFluentAndFilterBuilder And
-            => new FluentCompoundLogicalFilterBuilder(_filter, LogicalOperator.And);
-
-        public IFluentOrFilterBuilder Or
-            => new FluentCompoundLogicalFilterBuilder(_filter, LogicalOperator.Or);
-
-        public IFilter Build() => _filter;
+        public IFilter Build()
+            => _filter ?? throw new System.InvalidOperationException("No filter has been built.");
     }
 }

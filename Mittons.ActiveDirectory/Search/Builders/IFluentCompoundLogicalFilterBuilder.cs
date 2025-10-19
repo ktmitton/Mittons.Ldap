@@ -9,11 +9,13 @@ namespace Mittons.ActiveDirectory.Search.Builders
     public interface IFluentOrFilterBuilder
     {
         IFluentOrFilterPendingConditionBuilder Attribute(string attribute);
+        IFluentOrFilterPendingNextFilterBuilder Has(IFilter filter);
     }
 
     public interface IFluentAndFilterBuilder
     {
         IFluentAndFilterPendingConditionBuilder Attribute(string attribute);
+        IFluentAndFilterPendingNextFilterBuilder Has(IFilter filter);
     }
 
     public interface IFluentCompoundLogicalFilterBuilder
@@ -119,12 +121,11 @@ namespace Mittons.ActiveDirectory.Search.Builders
     { }
 
     public class FluentCompoundLogicalFilterBuilder
-        :
-        IFluentCompoundLogicalFilterBuilder,
-        IFluentCompoundLogicalFilterPendingConditionBuilder,
-        IFluentCompoundLogicalFilterPendingIsValueBuilder,
-        IFluentCompoundLogicalFilterPendingDoesValueBuilder,
-        IFluentCompoundLogicalFilterPendingNextFilterBuilder
+        : IFluentCompoundLogicalFilterBuilder,
+          IFluentCompoundLogicalFilterPendingConditionBuilder,
+          IFluentCompoundLogicalFilterPendingIsValueBuilder,
+          IFluentCompoundLogicalFilterPendingDoesValueBuilder,
+          IFluentCompoundLogicalFilterPendingNextFilterBuilder
     {
         private readonly List<IFilter> _filters = new List<IFilter>();
         private readonly LogicalOperator _logicalOperator;
@@ -142,19 +143,7 @@ namespace Mittons.ActiveDirectory.Search.Builders
 
         private FluentCompoundLogicalFilterBuilder AddFilter(IFilter filter)
         {
-            if (_negate)
-            {
-                _filters.Add(
-                    new SimpleLogicalFilter(
-                        LogicalOperator.Not,
-                        filter
-                    )
-                );
-
-                return this;
-            }
-
-            _filters.Add(filter);
+            _filters.Add(_negate ? new SimpleLogicalFilter(LogicalOperator.Not, filter) : filter);
 
             return this;
         }
@@ -205,6 +194,19 @@ namespace Mittons.ActiveDirectory.Search.Builders
         private IFluentCompoundLogicalFilterPendingConditionBuilder Attribute(string attribute)
         {
             _attribute = attribute;
+
+            return this;
+        }
+
+        IFluentOrFilterPendingNextFilterBuilder IFluentOrFilterBuilder.Has(IFilter filter)
+            => Has(filter);
+
+        IFluentAndFilterPendingNextFilterBuilder IFluentAndFilterBuilder.Has(IFilter filter)
+            => Has(filter);
+
+        private FluentCompoundLogicalFilterBuilder Has(IFilter filter)
+        {
+            _filters.Add(filter);
 
             return this;
         }
