@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Mittons.Ldap.Core.Tests/Mittons.Ldap.Core.Tests.csproj" />
+  <Project Path="Mittons.Ldap.Core/Mittons.Ldap.Core.csproj" />
+</Solution>

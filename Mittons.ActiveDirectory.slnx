@@ -1,4 +1,0 @@
-<Solution>
-  <Project Path="Mittons.ActiveDirectory.Tests/Mittons.ActiveDirectory.Tests.csproj" />
-  <Project Path="Mittons.ActiveDirectory/Mittons.ActiveDirectory.csproj" />
-</Solution>
