@@ -1,9 +1,7 @@
-using Mittons.ActiveDirectory.Search;
+using Mittons.ActiveDirectory.Search.Attributes;
 using Mittons.ActiveDirectory.Search.Items;
 using Mittons.ActiveDirectory.Search.Values;
 using Mittons.ActiveDirectory.Tests.Data;
-
-using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
 namespace Mittons.ActiveDirectory.Tests.Search.Items;
 
@@ -12,7 +10,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task Ctor_WhenCreated_ExpectPropertiesToBeSet(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -32,7 +30,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -52,7 +50,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -72,7 +70,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
@@ -92,7 +90,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToString_WhenCalledWithNoStartWildcard_ExpectTheDefaultStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
     )
@@ -111,7 +109,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToDirectoryServicesString_WhenCalledWithNoStartWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
     )
@@ -130,7 +128,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToLdapString_WhenCalledWithNoStartWildcard_ExpectTheLdapEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> endValueComponent
     )
@@ -149,7 +147,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToString_WhenCalledWithNoEndWildcard_ExpectTheDefaultStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
     )
@@ -168,7 +166,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToDirectoryServicesString_WhenCalledWithNoEndWildcard_ExpectTheDirectoryServicesEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
     )
@@ -187,7 +185,7 @@ public class SubstringItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToLdapString_WhenCalledWithNoEndWildcard_ExpectTheLdapEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent,
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.SimpleValuesSmallDatasource))] ComponentData<SimpleValue> startValueComponent,
         [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.WildcardValuesSmallDatasource))] ComponentData<WildcardValue> anyComponent
     )

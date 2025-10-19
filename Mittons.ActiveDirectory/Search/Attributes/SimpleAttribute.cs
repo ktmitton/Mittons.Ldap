@@ -1,10 +1,10 @@
-namespace Mittons.ActiveDirectory.Search
+namespace Mittons.ActiveDirectory.Search.Attributes
 {
-    public class Attribute
+    public class SimpleAttribute
     {
         public string Contents { get; }
 
-        public Attribute(string contents)
+        public SimpleAttribute(string contents)
         {
             Contents = contents;
         }

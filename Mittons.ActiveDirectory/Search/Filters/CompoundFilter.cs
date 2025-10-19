@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mittons.ActiveDirectory.Search.Operators;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {

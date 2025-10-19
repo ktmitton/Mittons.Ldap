@@ -1,7 +1,6 @@
-using Mittons.ActiveDirectory.Search;
+using Mittons.ActiveDirectory.Search.Attributes;
+using Mittons.ActiveDirectory.Search.Operators;
 using Mittons.ActiveDirectory.Search.Values;
-
-using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
 namespace Mittons.ActiveDirectory.Tests.Data;
 
@@ -35,10 +34,10 @@ public class ComponentDataDatasource
         yield return new ComponentData<LogicalOperator>(LogicalOperator.Or, "|", "|", "|");
     }
 
-    public static IEnumerable<ComponentData<Attribute>> AttributesDatasource()
+    public static IEnumerable<ComponentData<SimpleAttribute>> AttributesDatasource()
     {
-        yield return new ComponentData<Attribute>(new Attribute("name"), "name", "name", "name");
-        yield return new ComponentData<Attribute>(new Attribute("id"), "id", "id", "id");
+        yield return new ComponentData<SimpleAttribute>(new SimpleAttribute("name"), "name", "name", "name");
+        yield return new ComponentData<SimpleAttribute>(new SimpleAttribute("id"), "id", "id", "id");
     }
 
     public static IEnumerable<ComponentData<SimpleValue>> SimpleValuesDatasource()

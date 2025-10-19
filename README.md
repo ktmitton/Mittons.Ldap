@@ -18,15 +18,15 @@
 
 - [x] [simple](Mittons.ActiveDirectory/Search/Items/SimpleItem.cs) `attr filtertype value`
 
-- [x] [filtertype](Mittons.ActiveDirectory/Search/ComparisonOperator.cs) `equal / approx / greater / less`
+- [x] [filtertype](Mittons.ActiveDirectory/Search/Operators/ComparisonOperator.cs) `equal / approx / greater / less`
 
-- [x] [equal](Mittons.ActiveDirectory/Search/ComparisonOperator.cs) `"="`
+- [x] [equal](Mittons.ActiveDirectory/Search/Operators/ComparisonOperator.cs) `"="`
 
-- [x] [approx](Mittons.ActiveDirectory/Search/ComparisonOperator.cs) `"~="`
+- [x] [approx](Mittons.ActiveDirectory/Search/Operators/ComparisonOperator.cs) `"~="`
 
-- [x] [greater](Mittons.ActiveDirectory/Search/ComparisonOperator.cs) `">="`
+- [x] [greater](Mittons.ActiveDirectory/Search/Operators/ComparisonOperator.cs) `">="`
 
-- [x] [less](Mittons.ActiveDirectory/Search/ComparisonOperator.cs) `"<="`
+- [x] [less](Mittons.ActiveDirectory/Search/Operators/ComparisonOperator.cs) `"<="`
 
 - [ ] [extensible]() `attr [":dn"] [":" matchingrule] ":=" value / [":dn"] ":" matchingrule ":=" value`
 
@@ -40,7 +40,7 @@
 
 - [x] [final](Mittons.ActiveDirectory/Search/Items/SubstringItem.cs) `value`
 
-- [x] [attr](Mittons.ActiveDirectory/Search/Attribute.cs) `AttributeDescription from Section 4.1.5`
+- [x] [attr](Mittons.ActiveDirectory/Search/Attributes/Attribute.cs) `AttributeDescription from Section 4.1.5`
 
 - [ ] [matchingrule]() `MatchingRuleId from Section 4.1.9`
 

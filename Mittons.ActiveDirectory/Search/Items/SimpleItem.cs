@@ -1,19 +1,21 @@
+using Mittons.ActiveDirectory.Search.Attributes;
+using Mittons.ActiveDirectory.Search.Operators;
 using Mittons.ActiveDirectory.Search.Values;
 
 namespace Mittons.ActiveDirectory.Search.Items
 {
     public class SimpleItem : IItem
     {
-        public Attribute Attribute { get; }
+        public SimpleAttribute Attribute { get; }
         public ComparisonOperator ComparisonOperator { get; }
         public SimpleValue Value { get; }
 
         public SimpleItem(string attribute, ComparisonOperator comparisonOperator, string contents)
-            : this(new Attribute(attribute), comparisonOperator, new SimpleValue(contents))
+            : this(new SimpleAttribute(attribute), comparisonOperator, new SimpleValue(contents))
         {
         }
 
-        public SimpleItem(Attribute attribute, ComparisonOperator comparisonOperator, SimpleValue value)
+        public SimpleItem(SimpleAttribute attribute, ComparisonOperator comparisonOperator, SimpleValue value)
         {
             Attribute = attribute;
             ComparisonOperator = comparisonOperator;

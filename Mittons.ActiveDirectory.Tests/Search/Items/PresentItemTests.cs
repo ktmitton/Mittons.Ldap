@@ -1,7 +1,6 @@
+using Mittons.ActiveDirectory.Search.Attributes;
 using Mittons.ActiveDirectory.Search.Items;
 using Mittons.ActiveDirectory.Tests.Data;
-
-using Attribute = Mittons.ActiveDirectory.Search.Attribute;
 
 namespace Mittons.ActiveDirectory.Tests.Search.Items;
 
@@ -10,7 +9,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task Ctor_WhenCreated_ExpectPropertiesToBeSet(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
         // Arrange
@@ -24,7 +23,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToString_WhenCalled_ExpectTheDefaultStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
         // Arrange
@@ -41,7 +40,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToDirectoryServicesString_WhenCalled_ExpectTheDirectoryServicesEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
         // Arrange
@@ -58,7 +57,7 @@ public class PresentItemTests
     [Test]
     [MatrixDataSource]
     public async Task ToLdapString_WhenCalled_ExpectTheLdapEncodedStringToBeReturned(
-        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<Attribute> attributeComponent
+        [MatrixMethod<ComponentDataDatasource>(nameof(ComponentDataDatasource.AttributesDatasource))] ComponentData<SimpleAttribute> attributeComponent
     )
     {
         // Arrange

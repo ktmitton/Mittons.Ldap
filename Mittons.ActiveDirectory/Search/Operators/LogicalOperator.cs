@@ -1,4 +1,4 @@
-namespace Mittons.ActiveDirectory.Search
+namespace Mittons.ActiveDirectory.Search.Operators
 {
     public class LogicalOperator
     {

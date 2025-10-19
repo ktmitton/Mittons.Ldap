@@ -1,10 +1,12 @@
+using Mittons.ActiveDirectory.Search.Attributes;
+
 namespace Mittons.ActiveDirectory.Search.Items
 {
     public class PresentItem : IItem
     {
-        public Attribute Attribute { get; }
+        public SimpleAttribute Attribute { get; }
 
-        public PresentItem(Attribute attribute)
+        public PresentItem(SimpleAttribute attribute)
         {
             Attribute = attribute;
         }

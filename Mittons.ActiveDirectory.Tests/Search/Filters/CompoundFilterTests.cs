@@ -1,5 +1,6 @@
 using Mittons.ActiveDirectory.Search;
 using Mittons.ActiveDirectory.Search.Filters;
+using Mittons.ActiveDirectory.Search.Operators;
 using Mittons.ActiveDirectory.Tests.Data;
 using Moq;
 

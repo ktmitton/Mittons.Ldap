@@ -1,4 +1,5 @@
 using System;
+using Mittons.ActiveDirectory.Search.Operators;
 
 namespace Mittons.ActiveDirectory.Search.Filters
 {
