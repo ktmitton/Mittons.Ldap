@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Mittons.Ldap.Core.Core</PackageId>
+    <PackageId>Mittons.Ldap.Core</PackageId>
     <PackageVersion>1.0.0-preview.1</PackageVersion>
     <Authors>Kenneth Mitton</Authors>
     <Description>Core features needed for interacting with LDAP services.</Description>
     <Copyright>Copyright (c) Kenneth Mitton 2025</Copyright>
-    <PackageProjectUrl>https://github.com/ktmitton/Mittons.Ldap.Core.Core</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ktmitton/Mittons.Ldap.Core.Core</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ktmitton/Mittons.Ldap</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ktmitton/Mittons.Ldap</RepositoryUrl>
     <RespositoryType>git</RespositoryType>
     <PackageTags>ldap;active-directory</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
